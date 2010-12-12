@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.primefaces.component.captcha.PRIVATE_KEY</param-name>
+        <param-value>6LcpQb8SAAAAALlFPkD_HezDfnrCBU8VZRIzypCm</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/page403.xhtml</location>
+    </error-page>
+    <security-constraint>
+        <display-name>Ograniczenie na dodawanie/edycje artykulów</display-name>
+        <web-resource-collection>
+            <web-resource-name>addArticle</web-resource-name>
+            <description/>
+            <url-pattern>/faces/addArticle.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>editArticle</web-resource-name>
+            <description/>
+            <url-pattern>/faces/editArticle.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>EDITOR</role-name>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Ograniczenie na dodawanie komentarzy</display-name>
+        <web-resource-collection>
+            <web-resource-name>add comments</web-resource-name>
+            <description/>
+            <url-pattern>/faces/addComment.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>ADMIN</role-name>
+            <role-name>EDITOR</role-name>
+            <role-name>USER</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Ograniczenie na edycje wlasnego profilu</display-name>
+        <web-resource-collection>
+            <web-resource-name>editAccount</web-resource-name>
+            <description/>
+            <url-pattern>/faces/editAccount.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>USER</role-name>
+            <role-name>ADMIN</role-name>
+            <role-name>EDITOR</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Ograniczenie na przydzielanie uprawnien</display-name>
+        <web-resource-collection>
+            <web-resource-name>grantRole</web-resource-name>
+            <description/>
+            <url-pattern>/faces/grantRolePage.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>security</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>EDITOR</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>USER</role-name>
+    </security-role>
+</web-app>

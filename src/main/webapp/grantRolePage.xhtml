@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>TODO supply a title</title>
+    </h:head>
+    <h:body>
+        Wybierz użytkownika:
+        <h:form>
+            <h:selectOneMenu id="selectMenuId" value="#{grantRoleManagedBean.selectedUser}" hideNoSelectionOption="false" >
+                <f:selectItems value="#{grantRoleManagedBean.usersName}"/>
+                <f:ajax execute="selectMenuId" render="idTable idButton"/>
+            </h:selectOneMenu >
+            <br/><br/>
+            <h:panelGrid columns="2" id="idTable"  style="visibility: #{grantRoleManagedBean.visibilityForTableAndButton} " >
+                <h:selectBooleanCheckbox value="#{grantRoleManagedBean.userRole}" id="idUser"/> <h:outputText value="USER"/>
+                <h:selectBooleanCheckbox value="#{grantRoleManagedBean.editorRole}" id="idEditor"/><h:outputText value="EDITOR"/>
+                <h:selectBooleanCheckbox value="#{grantRoleManagedBean.adminRole}" id="idAdmin"/><h:outputText value="ADMIN"/>
+            </h:panelGrid>
+            <br/>
+            <h:commandButton id="idButton" style="visibility: #{grantRoleManagedBean.visibilityForTableAndButton} " value="Przypisz uprawnienia" action="#{grantRoleManagedBean.save}">
+                <f:ajax execute="idUser idEditor idAdmin"/>
+            </h:commandButton>
+        </h:form>
+    </h:body>
+</html>

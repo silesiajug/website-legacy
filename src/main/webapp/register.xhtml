@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Rejestracja użytkownika - Silesia JUG</title>
+    </h:head>
+    <h:body>
+        <style type="text/css" >
+            .error {
+                color: red
+            }
+        </style>
+
+        <h:form>
+            <table>
+                <tr><td> <h:outputText value="Nazwa użytkownika:" /></td>
+                    <td><h:inputText value="#{registerManagedBean.userName}" id="idInputUserName" required="true" requiredMessage="Musisz podać nazwę użytkownika"/></td>
+                    <td><h:message for="idInputUserName" styleClass="error"/></td></tr>
+
+                <tr><td><h:outputText value="Adres email:"/></td>
+                    <td><h:inputText value="#{registerManagedBean.email}" id="idInputEmail" required="true" requiredMessage="Musisz podać adres email"/></td>
+                    <td><h:message for="idInputEmail" styleClass="error"/></td>
+                </tr>
+
+                <tr><td> <h:outputText value="Hasło:"/></td>
+                    <td><h:inputSecret value="#{registerManagedBean.password}" id="idInputPassword" required="true" requiredMessage="Musisz podać hasło"/></td>
+                    <td><h:message for="idInputPassword" styleClass="error"/></td>
+                </tr>
+
+                <tr><td> <h:outputText value="Powtórz hasło:"/></td>
+                    <td><h:inputSecret value="#{registerManagedBean.retypePassword}" id="idInputRetypePassword" required="true" requiredMessage="Musisz powtórzyć hasło"/></td>
+                    <td><h:message for="idInputRetypePassword" styleClass="error"/></td>
+                </tr>
+
+            </table>
+            <p:captcha  id="idCaptcha" theme="blackglass" publicKey="6LcpQb8SAAAAAD4SV4_u8KKaBknfTrCb-HYh1Qta"
+                        required="true" requiredMessage="Musisz podać kod z obrazka"
+                        validatorMessage="Podałeś niepoprawny tekst z obrazka"/>
+            <h:message for="idCaptcha" styleClass="error"/>
+            <br/>
+            <h:commandButton value="Zarejestruj" action="#{registerManagedBean.doRegister}"/>
+            <h:messages/>
+        </h:form>
+    </h:body>
+</html>

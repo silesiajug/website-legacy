@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
+    <h:head>
+        <title>Strona główna - Silesia JUG</title>
+
+
+    </h:head>
+    <h:body>
+        Obecnie zalogowany użytkownik: #{usersSessionsManagedBean.currentLoggedUserName}<br/>
+        <h:form>
+        <h:link value="Zarejestruj" outcome="register" /> <br/>
+        <h:link value="Zaloguj" outcome="login" /> <br/>
+        <h:link value="Dodaj artykuł" outcome="addArticle"/> <br/>
+        <h:link value="Dodaj komentarz" outcome="addComment"/> <br/>
+        <h:link value="Edytuj konto" outcome="editAccount"/> <br/>
+        <h:link value="Zarzadzaj użytkownikami" outcome="grantRolePage"/> <br/>
+        <h:commandLink value="Wyloguj" action="#{usersSessionsManagedBean.logout}"/>
+        </h:form>
+    </h:body>
+</html>
