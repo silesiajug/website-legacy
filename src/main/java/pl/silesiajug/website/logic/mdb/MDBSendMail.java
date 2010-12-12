@@ -24,13 +24,13 @@ import javax.mail.internet.MimeMessage;
  *
  * @author Adam Szecowka
  */
-@MessageDriven(mappedName = "jms/MailConfirmationQueue", activationConfig = {
+@MessageDriven(mappedName = "jms/SilesiaJUGMailConfirmationQueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class MDBSendMail implements MessageListener {
 
-    @Resource(name = "mail/adam.szecowka@gmail.com")
+    @Resource(name = "mail/SilesiaJUGMailSession")
     private javax.mail.Session mailSession;
 
     public MDBSendMail() {
