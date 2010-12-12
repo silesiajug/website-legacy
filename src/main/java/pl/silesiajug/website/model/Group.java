@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pl.silesiajug.website.model;
 
 import java.io.Serializable;
@@ -25,13 +24,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "groups")
 @NamedQueries({
-    @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Groups g"),
-    @NamedQuery(name = "Groups.findById", query = "SELECT g FROM Groups g WHERE g.id = :id"),
-    @NamedQuery(name = "Groups.findByGroupName", query = "SELECT g FROM Groups g WHERE g.groupName = :groupName"),
-    @NamedQuery(name = "Groups.findByUser", query = "SELECT g FROM Groups g WHERE g.users = :user")
-
+    @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Group g"),
+    @NamedQuery(name = "Groups.findById", query = "SELECT g FROM Group g WHERE g.id = :id"),
+    @NamedQuery(name = "Groups.findByGroupName", query = "SELECT g FROM Group g WHERE g.groupName = :groupName"),
+    @NamedQuery(name = "Groups.findByUser", query = "SELECT g FROM Group g WHERE g.user = :user")
 })
-public class Groups implements Serializable {
+public class Group implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +41,20 @@ public class Groups implements Serializable {
     private String groupName;
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne
-    private Users users;
+    private User user;
 
-    public Groups() {
+    public User getUser() {
+        return user;
     }
 
-    public Groups(Integer id) {
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Group() {
+    }
+
+    public Group(Integer id) {
         this.id = id;
     }
 
@@ -67,14 +74,6 @@ public class Groups implements Serializable {
         this.groupName = groupName;
     }
 
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,10 +84,10 @@ public class Groups implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Groups)) {
+        if (!(object instanceof Group)) {
             return false;
         }
-        Groups other = (Groups) object;
+        Group other = (Group) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,5 +98,4 @@ public class Groups implements Serializable {
     public String toString() {
         return "pl.silesiajug.model.Groups[id=" + id + "]";
     }
-
 }

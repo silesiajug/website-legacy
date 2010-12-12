@@ -12,7 +12,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import pl.silesiajug.website.logic.UsersSessionBean;
 import pl.silesiajug.website.logic.UsersUtils;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.User;
 
 
 /**
@@ -27,7 +27,7 @@ public class RegisterManagedBean {
     public RegisterManagedBean() {
     }
     @EJB UsersSessionBean usersBean;
-    Users newUser = new Users();
+    User newUser = new User();
     private String retypePassword;
 
     public String doRegister() {

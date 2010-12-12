@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pl.silesiajug.website.model;
 
 import java.io.Serializable;
@@ -33,6 +32,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Article.findByTitle", query = "SELECT a FROM Article a WHERE a.title = :title"),
     @NamedQuery(name = "Article.findByContent", query = "SELECT a FROM Article a WHERE a.content = :content")})
 public class Article implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Article implements Serializable {
     private String content;
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Users users;
+    private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
     private List<Comment> commentList;
 
@@ -64,6 +64,14 @@ public class Article implements Serializable {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -78,14 +86,6 @@ public class Article implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
     }
 
     public List<Comment> getCommentList() {
@@ -120,5 +120,4 @@ public class Article implements Serializable {
     public String toString() {
         return "pl.silesiajug.model.Article[id=" + id + "]";
     }
-
 }

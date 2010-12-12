@@ -14,7 +14,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import pl.silesiajug.website.logic.UsersSessionBean;
 import pl.silesiajug.website.logic.UsersUtils;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.User;
 
 
 /**
@@ -31,18 +31,18 @@ public class EditAccountManagedBean {
     private String newPassword;
     private String retypeNewPassword;
     private String email;
-    private Users currentUser;
+    private User currentUser;
     private List<String> groupNames;
 
     public List<String> getGroupNames() {
         return groupNames;
     }
 
-    public Users getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(Users currentUser) {
+    public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 

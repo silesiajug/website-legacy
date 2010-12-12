@@ -11,9 +11,9 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pl.silesiajug.website.model.Groups;
+import pl.silesiajug.website.model.Group;
 import pl.silesiajug.website.model.RegistrationKey;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.User;
 
 
 /**
@@ -32,29 +32,29 @@ public class UsersSessionBean {
 
     @EJB SendToJmsBean sendToJmsBean;
 
-    public Users getUserByName(String name) {
-        return em.createNamedQuery("Users.findByName", Users.class).setParameter("name", name).getSingleResult();
+    public User getUserByName(String name) {
+        return em.createNamedQuery("Users.findByName", User.class).setParameter("name", name).getSingleResult();
     }
 
     public boolean checkIfUserExist(String userName) {
 
-        return em.createNamedQuery("Users.findByName", Users.class).setParameter("name", userName).getResultList().size() > 0;
+        return em.createNamedQuery("Users.findByName", User.class).setParameter("name", userName).getResultList().size() > 0;
     }
 
-    public void editUser(Users user) {
+    public void editUser(User user) {
         em.merge(user);
     }
 
-    public void removeGroups(Groups g) {
+    public void removeGroups(Group g) {
         g = em.merge(g);
         em.remove(g);
     }
 
-    public void addUser(Users user) {
+    public void addUser(User user) {
 
         em.persist(user);
         RegistrationKey rk = new RegistrationKey();
-        rk.setUsers(user);
+        rk.setUser(user);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, 3);
         Date date3MonthsAfterNow = calendar.getTime();
@@ -67,16 +67,16 @@ public class UsersSessionBean {
         sendToJmsBean.wyslijWiadomoscDoKolejki(user, rk);
     }
 
-    public Users tryConfirmRegistration(String key) {
+    public User tryConfirmRegistration(String key) {
         try {
             RegistrationKey regKey = em.createNamedQuery("RegistrationKey.findByUserKey", RegistrationKey.class)
                     .setParameter("userKey", key)
                     .getSingleResult();
-            Users user = regKey.getUsers();
+            User user = regKey.getUser();
             user.setEvidenced(true);
-            Groups groups = new Groups();
+            Group groups = new Group();
             groups.setGroupName(TypeOfGroups.USER.getName());
-            groups.setUsers(user);
+            groups.setUser(user);
             em.persist(groups);
             em.remove(regKey);
             return user;
@@ -87,19 +87,19 @@ public class UsersSessionBean {
         
     }
 
-    public List<String> getUSerRoles(Users user) {
+    public List<String> getUSerRoles(User user) {
        
         List<String> gNames = new ArrayList<String>();
 
-        for(Groups g:em.createNamedQuery("Groups.findByUser", Groups.class).setParameter("user", user).getResultList()) {
+        for(Group g:em.createNamedQuery("Groups.findByUser", Group.class).setParameter("user", user).getResultList()) {
             gNames.add(g.getGroupName());
         }
 
         return gNames;
     }
 
-    public List<Users> getAllUsers() {
-        return em.createNamedQuery("Users.findAll", Users.class).getResultList();
+    public List<User> getAllUsers() {
+        return em.createNamedQuery("Users.findAll", User.class).getResultList();
     }
  
 }

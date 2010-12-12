@@ -14,8 +14,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import pl.silesiajug.website.logic.TypeOfGroups;
 import pl.silesiajug.website.logic.UsersSessionBean;
-import pl.silesiajug.website.model.Groups;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.Group;
+import pl.silesiajug.website.model.User;
 
 /**
  *
@@ -30,7 +30,7 @@ public class GrantRoleManagedBean implements Serializable{
     public GrantRoleManagedBean() {
     }
 
-    private List<Users> users = new ArrayList<Users>();
+    private List<User> users = new ArrayList<User>();
     private String selectedUser;
     private boolean userRole, editorRole, adminRole;
 
@@ -102,7 +102,7 @@ public class GrantRoleManagedBean implements Serializable{
     public List<String> getUsersName() {
         List<String> list = new ArrayList<String>();
         list.add(NO_USER_SELECTED);
-        for(Users u:users) {
+        for(User u:users) {
             list.add(u.getName());
         }
         return list;
@@ -110,8 +110,8 @@ public class GrantRoleManagedBean implements Serializable{
 
     public String save() {
         
-        Users cu = null;
-        for(Users u:users) {
+        User cu = null;
+        for(User u:users) {
             if(u.getName().equals(selectedUser)) {
                 cu = u;
                 break;
@@ -122,27 +122,27 @@ public class GrantRoleManagedBean implements Serializable{
             return null;
         }
 
-        for(Groups g:cu.getGroupsList()) {
+        for(Group g:cu.getGroupsList()) {
             userSessionBean.removeGroups(g);
         }
         cu.getGroupsList().clear();
         
         if(adminRole) {
-            Groups gAdmin = new Groups();
+            Group gAdmin = new Group();
             gAdmin.setGroupName(TypeOfGroups.ADMIN.getName());
-            gAdmin.setUsers(cu);
+            gAdmin.setUser(cu);
             cu.getGroupsList().add(gAdmin);
         } 
         if(editorRole) {
-            Groups gEditor = new Groups();
+            Group gEditor = new Group();
             gEditor.setGroupName(TypeOfGroups.EDITOR.getName());
-            gEditor.setUsers(cu);
+            gEditor.setUser(cu);
             cu.getGroupsList().add(gEditor);
         } 
         if(userRole) {
-            Groups gUser = new Groups();
+            Group gUser = new Group();
             gUser.setGroupName(TypeOfGroups.USER.getName());
-            gUser.setUsers(cu);
+            gUser.setUser(cu);
             cu.getGroupsList().add(gUser);
         }
 

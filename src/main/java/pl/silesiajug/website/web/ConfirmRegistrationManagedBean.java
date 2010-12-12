@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import pl.silesiajug.website.logic.UsersSessionBean;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.User;
 
 
 /**
@@ -37,7 +37,7 @@ public class ConfirmRegistrationManagedBean {
             message = "";
             return message;
         }
-        Users user = usersBean.tryConfirmRegistration(key);
+        User user = usersBean.tryConfirmRegistration(key);
         if(user == null) {
             message = "Akcja zakończonoa niepowodzeniem";
             return message;

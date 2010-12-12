@@ -9,7 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.User;
 
 
 /**
@@ -33,7 +33,7 @@ public class UsersUtils {
             BigInteger number = new BigInteger(1, messageDigest);
             return number.toString(16);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

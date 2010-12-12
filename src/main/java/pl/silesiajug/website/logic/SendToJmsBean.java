@@ -11,7 +11,7 @@ import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import pl.silesiajug.website.model.RegistrationKey;
-import pl.silesiajug.website.model.Users;
+import pl.silesiajug.website.model.User;
 
 /**
  *
@@ -20,12 +20,12 @@ import pl.silesiajug.website.model.Users;
 @Stateless
 public class SendToJmsBean {
 
-    @Resource(mappedName = "jms/ConnectionFactory")
+    @Resource(mappedName = "jms/SilesiaJUGQueueConnectionFactory")
     private ConnectionFactory connectionFactory;
-    @Resource(mappedName = "jms/queue")
+    @Resource(mappedName = "jms/SilesiaJUGMailConfirmationQueue")
     private Queue queue;
 
-    public void wyslijWiadomoscDoKolejki(Users user, RegistrationKey rk) {
+    public void wyslijWiadomoscDoKolejki(User user, RegistrationKey rk) {
         try {
 
             MessageProducer messageProducer;

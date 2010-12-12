@@ -27,13 +27,13 @@ import pl.silesiajug.website.logic.UsersUtils;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER BY u.name"),
-    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-    @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"),
-    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
-    @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
-    @NamedQuery(name = "Users.findByEvidenced", query = "SELECT u FROM Users u WHERE u.evidenced = :evidenced")})
-public class Users implements Serializable {
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM User u ORDER BY u.name"),
+    @NamedQuery(name = "Users.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
+    @NamedQuery(name = "Users.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+    @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "Users.findByEvidenced", query = "SELECT u FROM User u WHERE u.evidenced = :evidenced")})
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,20 +48,20 @@ public class Users implements Serializable {
     private String email;
     @Column(name = "evidenced")
     private Boolean evidenced = false;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Article> articleList;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<RegistrationKey> registrationKeyList;
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<Comment> commentList;
-    @OneToMany(mappedBy = "users", cascade={CascadeType.REMOVE})
+    @OneToMany(mappedBy = "user", cascade={CascadeType.REMOVE})
 
-    private List<Groups> groupsList;
+    private List<Group> groupsList;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(Integer id) {
+    public User(Integer id) {
         this.id = id;
     }
 
@@ -129,11 +129,11 @@ public class Users implements Serializable {
         this.commentList = commentList;
     }
 
-    public List<Groups> getGroupsList() {
+    public List<Group> getGroupsList() {
         return groupsList;
     }
 
-    public void setGroupsList(List<Groups> groupsList) {
+    public void setGroupsList(List<Group> groupsList) {
         this.groupsList = groupsList;
     }
 
@@ -148,10 +148,10 @@ public class Users implements Serializable {
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         System.out.println("Ktos niepostrzezenie wywolal equals klasy Users :)");
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

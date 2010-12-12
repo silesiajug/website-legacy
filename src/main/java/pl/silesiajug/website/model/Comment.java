@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pl.silesiajug.website.model;
 
 import java.io.Serializable;
@@ -17,10 +16,29 @@ import javax.persistence.Id;
  */
 @Entity
 public class Comment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Article article;
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -54,5 +72,4 @@ public class Comment implements Serializable {
     public String toString() {
         return "pl.silesiajug.website.model.Comment[id=" + id + "]";
     }
-
 }

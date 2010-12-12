@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pl.silesiajug.website.model;
 
 import java.io.Serializable;
@@ -33,6 +32,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "RegistrationKey.findByUserKey", query = "SELECT r FROM RegistrationKey r WHERE r.userKey = :userKey"),
     @NamedQuery(name = "RegistrationKey.findByRequestDate", query = "SELECT r FROM RegistrationKey r WHERE r.requestDate = :requestDate")})
 public class RegistrationKey implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,15 @@ public class RegistrationKey implements Serializable {
     private Date requestDate;
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne
-    private Users users;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public RegistrationKey() {
     }
@@ -79,14 +87,6 @@ public class RegistrationKey implements Serializable {
         this.requestDate = requestDate;
     }
 
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -111,5 +111,4 @@ public class RegistrationKey implements Serializable {
     public String toString() {
         return "pl.silesiajug.model.RegistrationKey[id=" + id + "]";
     }
-
 }
