@@ -19,6 +19,7 @@ import pl.silesiajug.website.model.User;
 @ManagedBean
 @RequestScoped
 public class ConfirmRegistrationManagedBean {
+    
 
     @EJB UsersSessionBean usersBean;
     private String key;
